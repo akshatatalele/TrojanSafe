@@ -13,28 +13,29 @@ def get_db_connection():
 
 @app.route("/")
 def index():
+    return render_template("index.html")
+
+@app.route("/alerts")
+def alerts():
     conn = get_db_connection()
-    posts = conn.execute('SELECT * from posts').fetchall()
+    crimes = conn.execute('SELECT * from crime_data').fetchall()
     conn.close()
-    return render_template("index.html", posts = posts)
+    return render_template("alerts.html", crimes = crimes)
 
-@app.route("/<name>")
-def user(name):
-    return "Hello  "+ name
 
-@app.route('/<int:post_id>')
-def post(post_id):
-    post = get_post(post_id)
-    return render_template('post.html', post=post)
+@app.route('/<int:crime_id>')
+def crime(crime_id):
+    crime = get_crime(crime_id)
+    return render_template('crime.html', crime=crime)
 
-def get_post(post_id):
+def get_crime(crime_id):
     conn = get_db_connection()
-    post = conn.execute('SELECT * FROM posts WHERE id = ?',
-                        (post_id,)).fetchone()
+    crime = conn.execute('SELECT * FROM crime_data WHERE crime_id = ?',
+                        (crime_id,)).fetchone()
     conn.close()
-    if post is None:
+    if crime is None:
         abort(404)
-    return post
+    return crime
 
 @app.route('/create', methods=('GET', 'POST'))
 def create():
@@ -56,7 +57,7 @@ def create():
 
 @app.route('/<int:id>/edit', methods=('GET', 'POST'))
 def edit(id):
-    post = get_post(id)
+    crime = get_crime(id)
 
     if request.method == 'POST':
         title = request.form['title']
@@ -66,14 +67,14 @@ def edit(id):
             flash('Title is required!')
         else:
             conn = get_db_connection()
-            conn.execute('UPDATE posts SET title = ?, content = ?'
+            conn.execute('UPDATE crime_data SET crime_title = ?, crime_incident_description = ?'
                          ' WHERE id = ?',
                          (title, content, id))
             conn.commit()
             conn.close()
             return redirect(url_for('index'))
 
-    return render_template('edit.html', post=post)
+    return render_template('edit.html', crime=crime)
 
 # @app.route('/<int:id>/delete', methods=('POST',))
 # def delete(id):
@@ -84,6 +85,19 @@ def edit(id):
 #     conn.close()
 #     flash('"{}" was successfully deleted!'.format(post['title']))
 #     return redirect(url_for('index'))
+
+@app.route('/tips')
+def tips():
+    return render_template('tips.html')
+
+@app.route('/contacts')
+def contacts():
+    return render_template('contacts.html')
+
+@app.route('/aboutus')
+def aboutus():
+    return render_template('aboutus.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

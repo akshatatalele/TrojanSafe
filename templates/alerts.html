@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
 {% block title %}
-index
+Home Page 
 {% endblock %}
 
 {% block content%}
-<h1>index  </h1>
-        <div class="container">
+<h1>DPS CRIME ALERTS </h1>
+    {% for crime in crimes %}
+        <a href="{{ url_for('create', crime_id=crime['crime_id']) }}">
+            <h2>{{ crime['crime_title'] }}</h2>
+        </a>
+        <span class="badge badge-primary">{{ crime['created'] }}</span>
+        <a href="{{ url_for('edit', id=crime['crime_id']) }}">
+            <span class="badge badge-warning">Edit</span>
+        </a>
+        <hr>
+    {% endfor %}
+    <div class="container">
         <h2>Panels with Contextual Classes</h2>
         <div class="panel-group">
           <div class="panel panel-default">
