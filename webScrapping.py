@@ -1,5 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
+import sqlite3
+
+def get_connection():
+    connection = sqlite3.connect('database.db')
+    with open('schema.sql') as f:
+        connection.executescript(f.read())
+    return connection
+    
+
 
 def get_crime_details(url_string,crime_nos):
     for i in range(crime_nos,1,-1): 
@@ -12,9 +21,10 @@ def get_crime_details(url_string,crime_nos):
         #Extract crime data
         if(soup.find("h1",class_="entry-title")):
             crime_type=soup.find("h1",class_="entry-title").text
-            count+=1
             if(soup.find("div",class_="entry-meta")):
                 crime_alert_date=soup.find("div",class_="entry-meta").text
+                #print(crime_alert_date)
+                #print("==============================================")
             if(soup.find("div",class_="entry-content")):
                 crime_details=soup.find("div",class_="entry-content")
             if(crime_details.find_all('p')):
@@ -26,6 +36,7 @@ def get_crime_details(url_string,crime_nos):
                 
             
 def main():
+    get_connection()
     get_crime_details('https://dps.usc.edu/robbery-',55)
     get_crime_details('https://dps.usc.edu/aggravated-assault-',4)
     get_crime_details('https://dps.usc.edu/attempted-robbery-',5)
