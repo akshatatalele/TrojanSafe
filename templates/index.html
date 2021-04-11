@@ -57,6 +57,8 @@ index
   
   <script>
     var gmarkers = [];
+    var path_color = 'red';
+
     function initMap() {
       var directionsService = new google.maps.DirectionsService;
       var directionsRenderer = new google.maps.DirectionsRenderer;
@@ -67,21 +69,18 @@ index
 
       directionsRenderer.setMap(map);
       var calcRoute = function(){  
+         var call;
         $(function(){
-            var start = document.getElementById("start").value
-            var end = document.getElementById("end").value
-            $.getJSON('get_safety_details?source_address='+ start +'&destination_address=' + end, function(data) {
+            var start = document.getElementById("start").value;
+            var end = document.getElementById("end").value;
+            call = $.getJSON('get_safety_details?source_address='+ start +'&destination_address=' + end, function(data) {
                 // json = JSON.parse(data);
                 console.log(data);
                 if(!data.is_destination_safe){
                     // change the path color 
                     console.log(data.unsafe_locations);
                     // console.log(data.unsafe_locations);
-                    directionsRenderer.setOptions({
-                      polylineOptions: {
-                        strokeColor: 'red'
-                      }
-                    });
+                    path_color = 'red';
                     var infowindow = new google.maps.InfoWindow();
                     var marker, i;
                     var loc = data.unsafe_locations;
@@ -102,20 +101,17 @@ index
                     }
                 }
                 else{
-                  directionsRenderer.setOptions({
-                      polylineOptions: {
-                        strokeColor: 'green'
-                      }
-                    });
+                  path_color = 'green';
                     for (i = 0; i < gmarkers.length; i++) {
-                      if (gmarkers[i].getMap() != null) gmarkers[i].setMap(null);
-                      else gmarkers[i].setMap(map);
+                      gmarkers[i].setMap(null);
                     }
                 }
               });
         });
-        sleep(2000);
-        calculateAndDisplayRoute(directionsService, directionsRenderer);
+
+        call.done(function(data){
+          calculateAndDisplayRoute(directionsService, directionsRenderer);
+        });      
       }
       document.getElementById("fetch_route").addEventListener("click", calcRoute);
     }
@@ -123,6 +119,11 @@ index
       return new Promise(resolve => setTimeout(resolve, ms));
     }
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+      directionsDisplay.setOptions({
+                      polylineOptions: {
+                        strokeColor: path_color
+                      }
+                    });
       directionsService.route({
         origin: document.getElementById('start').value,
         destination: document.getElementById('end').value,
