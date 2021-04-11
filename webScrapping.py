@@ -9,6 +9,14 @@ def get_connection():
         connection.executescript(f.read())
     return connection
 
+def update_location_coordinates():
+    connection.execute("Update crime_data set crime_location_coordinate = ? where crime_id = ?", ("34.027906453327,-118.2749037790", 1))
+    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ( , 2))
+    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ( , 3))
+    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ( , 4))
+    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ( , 5))
+
+
 def get_crime_details(url_string, crime_nos, connection):
     
     crime_title = ""
@@ -52,6 +60,8 @@ def get_crime_details(url_string, crime_nos, connection):
                 db_timeStamp = connection.execute('Select * from crime_data where crime_timeStamp = ?', (timestamp,)) 
                 if len(db_timeStamp.fetchall()) == 0:
                     connection.execute("Insert into crime_data(crime_title, crime_alert_date, crime_location, crime_timeStamp, crime_url) values(?, ?, ?, ?, ?)", (crime_title, crime_alert_date, location, timestamp, url))
+
+    update_location_coordinates()
     
                 
 def main():

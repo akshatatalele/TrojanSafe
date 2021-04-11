@@ -6,7 +6,6 @@ CREATE TABLE crime_data (
     crime_alert_date TEXT NOT NULL,
     crime_location TEXT NOT NULL,
     crime_timeStamp TEXT NOT NULL,
-    crime_lat TEXT,
-    crime_long TEXT,
+    crime_location_coordinate TEXT,
     crime_url TEXT NOT NULL
 );
