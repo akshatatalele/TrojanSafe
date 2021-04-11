@@ -15,12 +15,12 @@ index
       <form>
         <div class="form-group">
           <!-- <label for="start_location">Starting Location</label> -->
-          <input type="text" class="form-control" id="start_location" aria-describedby="startLocation" placeholder="Enter the start location">
+          <input type="text" class="form-control" id="start" aria-describedby="startLocation" placeholder="Enter the start location">
           <small class="form-text text-muted">From where you want to start your journey.</small>
         </div>
         <div class="form-group">
           <!-- <label for="end_location">Destination</label> -->
-          <input type="text" class="form-control" id="end_location" aria-describedby="endLocation" placeholder="Enter the destination">
+          <input type="text" class="form-control" id="end" aria-describedby="endLocation" placeholder="Enter the destination">
           <small class="form-text text-muted">Voila you reached.</small>
         </div>
         <div class="form-group row">
@@ -31,7 +31,7 @@ index
         </div>
         <div>
           <p class="lead text-center">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Search Safe Route</a>
+            <a class="btn btn-primary btn-lg" role="button" id="fetch_route">Search Safe Route</a>
           </p>
         </div>
       </form>
@@ -55,9 +55,48 @@ index
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-9pwUGx6xkzP2pbIbuwT_DWgE3jT_Gj4"></script>
-
+  
   <script>
-        $(function () {
+    
+    function initMap() {
+      var directionsService = new google.maps.DirectionsService;
+      var directionsRenderer = new google.maps.DirectionsRenderer;
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 7,
+        center: {lat: 41.85, lng: -87.65}
+      });
+
+      directionsRenderer.setMap(map);
+      var calcRoute = function(){
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+      }
+      document.getElementById("fetch_route").addEventListener("click", calcRoute);
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+      directionsService.route({
+        origin: document.getElementById('start').value,
+        destination: document.getElementById('end').value,
+        travelMode: 'DRIVING'
+      }, function(response, status) {
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
+    }
+
+    var fun = function(){
+      initMap();
+    }
+
+    google.maps.event.addDomListener(window, 'load', fun);
+
+    
+  </script>
+  <!-- <script>
+      $(function () {
 
             function initMap() {
 
@@ -71,12 +110,43 @@ index
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
                 var map = new google.maps.Map(mapCanvas, mapOptions);
-
+                
+                new google.maps.Marker({
+                position: location,
+                map,
+                title: "Hello World!",
+              });
+            
             }
 
             google.maps.event.addDomListener(window, 'load', initMap);
             });
-  </script>
+  
+      function calcRoute() {
+        console.log("You called me");
+        var start = document.getElementById('start_location').value;
+        var end = document.getElementById('end_location').value;
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+        var request = {
+          origin: start,
+          destination: end,
+          travelMode: 'DRIVING'
+        };
+        directionsService.route(request, function(result, status) {
+          if (status == 'OK') {
+            console.log("OKAYS");
+            directionsRenderer.setDirections(result);
+          }
+        });
+      }
+
+  // $(function(){
+  //   console.log("your boss");
+  //   $('#fetch_route').click(calcRoute)
+  // });
+            
+  </script> -->
   <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
   <script type="text/javascript" src="scripts/js/maps.js"></script> -->
