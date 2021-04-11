@@ -13,7 +13,11 @@ def get_db_connection():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    crimes = get_recent_crimes()
+    print(crimes)
+    for c in crimes:
+        print(c)
+    return render_template("index.html", crimes= crimes)
 
 @app.route("/alerts")
 def alerts():
@@ -27,6 +31,16 @@ def alerts():
 def crime(crime_id):
     crime = get_crime(crime_id)
     return render_template('crime.html', crime=crime)
+
+# get recent 5 crimes 
+def get_recent_crimes():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    crimes = cur.execute('SELECT * FROM crime_data order by crime_alert_date Limit 5').fetchall()
+    conn.close()
+    if crimes is None:
+        abort(404)
+    return crimes
 
 def get_crime(crime_id):
     conn = get_db_connection()

@@ -5,40 +5,60 @@ index
 {% endblock %}
 
 {% block content%}
-<h1>index  </h1>
-        <div class="container">
-        <h2>Panels with Contextual Classes</h2>
-        <div class="panel-group">
-          <div class="panel panel-default">
-            <div class="panel-heading">Panel with panel-default class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-      
-          <div class="panel panel-primary">
-            <div class="panel-heading">Panel with panel-primary class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-      
-          <div class="panel panel-success">
-            <div class="panel-heading">Panel with panel-success class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-      
-          <div class="panel panel-info">
-            <div class="panel-heading">Panel with panel-info class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-      
-          <div class="panel panel-warning">
-            <div class="panel-heading">Panel with panel-warning class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-      
-          <div class="panel panel-danger">
-            <div class="panel-heading">Panel with panel-danger class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-        </div>
+  <div class="row">
+    <!--Google map-->
+    <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
+      <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+        style="border:0" allowfullscreen></iframe>
     </div>
 
+    <!--Google Maps-->
+
+    <div class="col-4"></div>
+    <div class="col-4"></div>
+    <div class="jumbotron col-4">
+      <h1 class="display-6">Lets start your safe journey!</h1>
+      <p class="lead text-muted">Happy Journey..!</p>
+      <hr class="my-4">
+      
+      <form>
+        <div class="form-group">
+          <!-- <label for="start_location">Starting Location</label> -->
+          <input type="text" class="form-control" id="start_location" aria-describedby="startLocation" placeholder="Enter the start location">
+          <small class="form-text text-muted">From where you want to start your journey.</small>
+        </div>
+        <div class="form-group">
+          <!-- <label for="end_location">Destination</label> -->
+          <input type="text" class="form-control" id="end_location" aria-describedby="endLocation" placeholder="Enter the destination">
+          <small class="form-text text-muted">Voila you reached.</small>
+        </div>
+        <div class="form-group row">
+          <div class="col-12">
+            <input class="form-control" type="time" value="13:45:00" id="example-time-input">
+            <small class="form-text text-muted">Time of travel</small>
+          </div>
+        </div>
+        <div>
+          <p class="lead text-center">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Search Safe Route</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    {% for crime in crimes %}
+      <div class="card col-2" style="margin: 1%;">
+        <div class="card-body">
+          <h4 class="card-title">{{crime['crime_title'] }}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">{{ crime['crime_alert_date']}}</h6>
+          <p class="card-text">{{crime['crime_location']}}</p>
+          <!-- <p class="card-text">Reported on {{crime['crime_timeStamp']}}</p> -->
+          <footer class="blockquote-footer">Reported on {{crime['crime_timeStamp']}}</footer>
+          <a href="{{ crime['crime_url'] }}" class="card-link">Read more</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+       
 {% endblock %}
