@@ -155,10 +155,9 @@ def check_destination_safety(source_address,destination_address):
 
 def get_unsafe_locations(end_coordinates, danger_locations):
     unsafe_locations = []
-    for location in range(0, 5): 
-        #len(danger_locations)
+    for location in range(0, len(danger_locations)): 
         dist_matrix = gmaps.distance_matrix(end_coordinates,danger_locations[location])['rows'][0]['elements'][0]
-        if dist_matrix['distance']['value'] < 1609.34 :
+        if dist_matrix['distance']['value'] < 804.67 :
             unsafe_locations.append(danger_locations[location])
     return unsafe_locations, dist_matrix['status']
     

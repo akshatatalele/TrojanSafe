@@ -12,25 +12,20 @@
     <title>{% block title %} {% endblock %}</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url_for('index')}}">TrojanSafe</a>
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: black;">
+        <img class="navbar-brand" src="static/images/TROJAN_SAFE.png" height="50" alt="logo">
+        <a class="nav navbar-brand" href="{{ url_for('index')}}" style="color: aliceblue;">TrojanSafe</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item active">
-                  <a class="nav-link" href="{{url_for('alerts')}}">Crime Alerts</a>
+                <a class="nav-link" href="{{ url_for('tips')}}" style="color: aliceblue;">Safety Facts & Tips</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="{{ url_for('tips')}}">Safety Facts & Tips</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="{{ url_for('contacts')}}">Emergency Numbers</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="{{url_for('aboutus')}}">About Us</a>
-              </li>
+                <a class="nav-link" href="{{ url_for('contacts')}}" style="color: aliceblue;">Emergency Numbers</a>
+              </li>    
             </ul>
         </div>
     </nav>
@@ -40,7 +35,16 @@
         {% endfor %}
         {% block content %} {% endblock %}
     </div>
+      <!-- Footer -->
+      <footer class="page-footer font-small blue pt-4">
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3"  style="color: #AB3123;">© 2021 Copyright:
+          <span> HackStreet Girls</span>
+        </div>
+        <!-- Copyright -->
 
+      </footer>
+      <!-- Footer -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->

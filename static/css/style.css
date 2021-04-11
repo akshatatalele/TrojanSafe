@@ -1,14 +1,14 @@
-h1 {
+/* h1 {
     border: 2px #eee solid;
     color: brown;
     text-align: center;
     padding: 10px;
-}
+} */
 
 #maps {
     height: 100%;
     width: 100%;
-    position:absolute;
+
     top: 0;
     left: 0;
     /* z-index: 0;     Set z-index to 0 as it will be on a layer below the contact form */
