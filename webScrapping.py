@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import sqlite3
 
+#function to set up db connection
 def get_connection():
     connection = sqlite3.connect('database.db')
     with open('schema.sql') as f:
@@ -36,7 +37,7 @@ def get_crime_details(url_string, crime_nos, connection):
                 crime_in_depth = crime_details.find_all('p')
                 url = URL
                 
-                # Extract crime data in more detail
+                # Extract crime time stamp and location
                 for j in range(0,3):
                     crime_desc = crime_in_depth[j].text
                     crime_desc = crime_desc.split(":", 1)
@@ -47,7 +48,10 @@ def get_crime_details(url_string, crime_nos, connection):
                     elif j == 2 and crime_desc[0].lower().find("location") != -1:
                         location = crime_desc[1]
 
-                connection.execute("Insert into crime_data(crime_title, crime_alert_date, crime_location, crime_timeStamp, crime_url) values(?, ?, ?, ?, ?)", (crime_title, crime_alert_date, location, timestamp, url))
+                # insert unique data into db
+                db_timeStamp = connection.execute('Select * from crime_data where crime_timeStamp = ?', (timestamp,)) 
+                if len(db_timeStamp.fetchall()) == 0:
+                    connection.execute("Insert into crime_data(crime_title, crime_alert_date, crime_location, crime_timeStamp, crime_url) values(?, ?, ?, ?, ?)", (crime_title, crime_alert_date, location, timestamp, url))
     
                 
 def main():
