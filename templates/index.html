@@ -67,7 +67,41 @@ index
       });
 
       directionsRenderer.setMap(map);
-      var calcRoute = function(){
+      var calcRoute = function(){  
+        $(function(){
+            var start = document.getElementById("start").value
+            var end = document.getElementById("end").value
+            $.getJSON('get_safety_details?source_address='+ start +'&destination_address=' + end, async = false, function(data) {
+                // json = JSON.parse(data);
+                console.log(data);
+                if(!data.is_destination_safe){
+                    // change the path color 
+                    console.log(data.unsafe_locations);
+                    // console.log(data.unsafe_locations);
+                    directionsRenderer.setOptions({
+                      polylineOptions: {
+                        strokeColor: 'red'
+                      }
+                    });
+                }
+                else{
+                  directionsRenderer.setOptions({
+                      polylineOptions: {
+                        strokeColor: 'green'
+                      }
+                    });
+                }
+                var marker, i;
+                var locations = data.unsafe_locations;
+                for (i = 0; i < locations.length; i++) {  
+                    marker = new google.maps.Marker({
+                      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                      map: map
+                    });
+                }
+              });
+        });
+
         calculateAndDisplayRoute(directionsService, directionsRenderer);
       }
       document.getElementById("fetch_route").addEventListener("click", calcRoute);
@@ -77,7 +111,7 @@ index
       directionsService.route({
         origin: document.getElementById('start').value,
         destination: document.getElementById('end').value,
-        travelMode: 'DRIVING'
+        travelMode: 'WALKING'
       }, function(response, status) {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
