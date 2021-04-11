@@ -2,9 +2,13 @@ from flask import Flask, redirect, url_for, render_template, request, flash
 import sqlite3
 from werkzeug.exceptions import abort
 import csv
+from googlemaps import Client
+import json
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'BoostIsTheSecretOfMyEnergy'
+API_KEY = 'AIzaSyD-9pwUGx6xkzP2pbIbuwT_DWgE3jT_Gj4'
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
@@ -100,6 +104,7 @@ def edit(id):
 @app.route('/tips')
 def tips():
     return render_template('tips.html')
+    
 
 @app.route('/contacts')
 def contacts():
@@ -108,6 +113,31 @@ def contacts():
 @app.route('/aboutus')
 def aboutus():
     return render_template('aboutus.html')
+
+def get_coordinates(address):
+    gmaps = Client(API_KEY)
+    geo_result = gmaps.geocode(address)
+    lat = json.dumps(geo_result[0]['geometry']['location']['lat'])
+    lng = json.dumps(geo_result[0]['geometry']['location']['lng'])
+    return str(lat)+','+str(lng)
+    
+def get_all_danger_coordinates():
+    conn = get_db_connection()
+    crime_location_coordinate = conn.execute('select crime_location_coordinate from crime_data').fetchall()
+   # print(crime_location_coordinate)
+    conn.commit()
+    conn.close()
+
+def check_destination_safety(source_address,destination_address):
+    
+    start_coordinates = get_coordinates(source_address)
+    end_coordinates = get_coordinates(destination_address)
+    danger_locations = get_all_danger_coordinates()
+
+    #print(get_coordinates('1210 W Adams Blvd,LA,CA,90007'))
+          
+
+    #return render_template('tips.html')
 
 
 if __name__ == "__main__":
