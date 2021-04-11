@@ -74,7 +74,6 @@ index
             $.getJSON('get_safety_details?source_address='+ start +'&destination_address=' + end, function(data) {
                 // json = JSON.parse(data);
                 console.log(data);
-                sleep(30);
                 if(!data.is_destination_safe){
                     // change the path color 
                     console.log(data.unsafe_locations);

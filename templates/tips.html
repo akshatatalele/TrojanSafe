@@ -5,40 +5,71 @@ Tips
 {% endblock %}
 
 {% block content%}
-<h1>Saftey Tips  </h1>
-        <div class="container">
-        <h2>Panels with Contextual Classes</h2>
-        <div class="panel-group">
-          <div class="panel panel-default">
-            <div class="panel-heading">Panel with panel-default class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-      
-          <div class="panel panel-primary">
-            <div class="panel-heading">Panel with panel-primary class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-      
-          <div class="panel panel-success">
-            <div class="panel-heading">Panel with panel-success class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-      
-          <div class="panel panel-info">
-            <div class="panel-heading">Panel with panel-info class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-      
-          <div class="panel panel-warning">
-            <div class="panel-heading">Panel with panel-warning class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-      
-          <div class="panel panel-danger">
-            <div class="panel-heading">Panel with panel-danger class</div>
-            <div class="panel-body">Panel Content</div>
-          </div>
-        </div>
+<h1>Saftey Tips </h1>
+<div class="row">
+    <!-- card 1 -->
+    <div class="card col-5 col-sm-5" style="margin: 1%;">
+      <div class="card-body">
+        <h4 class="card-title"> Emergency Blue Light Phones </h4>
+        <hr/>
+        <p class="card-text">Blue light emergency phones are located throughout the University Park and Health Sciences campuses. The phones are connected to the USC Department of Public Safety’s 24-hour communications center and identify the phone location if the caller is unable to talk. The phones can be used to request an escort, report suspicious activity, and to report crimes.</p>
+        <a href=" https://dps.usc.edu/blue-light-phones/" class="card-link">Read more</a>
+      </div>
     </div>
+    <div class="card col-5 col-sm-5" style="margin: 1%;">
+      <div class="card-body">
+        <h4 class="card-title"> Be Aware of Scams </h4>
+        <hr/>
+        <p class="card-text">Scammers (thieves trying to trick victims) are targeting international students in Southern California. Scammers posing as local police officers, agents of the Internal Revenue Service (IRS), travel companies, apartment leasing companies, and immigration agencies – such as the Department of Homeland Security, Customs and Border Protection, U.S. Citizenship and Immigration Services, and U.S. Embassies abroad are contacting students and demanding money and personal information.</p>
+        <a href="https://dps.usc.edu/be-aware-of-scams/" class="card-link">Read more</a>
+      </div>
+    </div>
+    <!-- card 2 -->
+    <div class="card col-5 col-sm-5" style="margin: 1%;">
+      <div class="card-body">
+        <h4 class="card-title"> Jogging Safety </h4>
+        <hr/>
+        <p class="card-text">Follow our tips for ensuring that your jogs are rewarding and safe:
+          <ul>
+
+            <li>Recruit a friend. Runners in pairs or groups are less appealing targets.</li> 
+            <li>Jog in a familiar area but vary your routes. Changing the route you take will prevent someone from noting your schedule or movements.</li>
+            <li>Avoid jogging in secluded areas or at night. If you do run after dark, do so in well-lit and populated areas and consider buying reflective running gear or a runner’s light so that you’re highly visible to traffic.</li>
+            <li>Do not run with your phone or other valuables in sight.</li>
+            <li>Face oncoming traffic.</li>
+            <li>Carry your ID. If you suspect you’re being followed, call the police immediately and find a safe place to wait for them to arrive.</li>
+            <li>Wear bright colored clothing to improve your visibility.</li>
+            <li>Carry a whistle or shrill alarm to summon help if needed.</li>
+            <li>Jog in open spaces, away from bushes or alcoves where someone could hide.</li>
+            <li>Take a key with you when you jog. Don’t leave your house unlocked.</li>
+
+          </ul>
+        </p>
+        <a href=" https://dps.usc.edu/blue-light-phones/" class="card-link">Read more</a>
+      </div>
+    </div>
+    <!-- card 3 -->
+    <div class="card col-5 col-sm-5" style="margin: 1%;">
+      <div class="card-body">
+        <h4 class="card-title"> On Foot Safety </h4>
+        <hr/>
+        <p class="card-text">
+          <ul>
+            <li>Find a buddy. Whenever possible, don’t walk alone. The larger the group, the less chance you’ll be targeted.</li> 
+            <li>When walking alone, skip using headphones or taking phone calls. Robbers often target people they notice are distracted or unaware of their surroundings.</li>
+            <li>Don’t walk alone at night. Call <a href="http://transnet.usc.edu/index.php/campus-cruiser-program/"> Campus Cruiser </a> for a free escort to your destination.</li>
+            <li>Stay aware of your surroundings. Take note of where you are and who’s around. Look behind you. Trust your instincts–if your route seems unsafe, don’t take it.</li>
+            <li>Avoid unlit or deserted areas. They make you uncomfortable for a reason. Even if that alley is your favorite shortcut in daylight, at night opt for the long way home where there are streetlights and other people.</li>
+
+          </ul>
+        </p>
+        <a href="https://dps.usc.edu/safety-tips/theft-prevention/" class="card-link">Read more</a>
+      </div>
+    </div>
+</div>
+<!-- Include the Google Maps API library - required for embedding maps -->
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-9pwUGx6xkzP2pbIbuwT_DWgE3jT_Gj4"></script>
 
 {% endblock %}
