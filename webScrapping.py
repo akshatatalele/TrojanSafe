@@ -9,12 +9,12 @@ def get_connection():
         connection.executescript(f.read())
     return connection
 
-def update_location_coordinates():
+def update_location_coordinates(connection):
     connection.execute("Update crime_data set crime_location_coordinate = ? where crime_id = ?", ("34.027906453327,-118.2749037790", 1))
-    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ( , 2))
-    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ( , 3))
-    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ( , 4))
-    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ( , 5))
+    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ("34.03430468199586,-118.28400709568707", 2))
+    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ("34.024850673098236,-118.28176814003838", 3))
+    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ("34.03311208160461,-118.27945309822908", 4))
+    connection.execute("Update crime_data set crime_lat = ?, crime_long = ? where crime_id = ?", ("34.02224681607721,-118.29167836920976", 5))
 
 
 def get_crime_details(url_string, crime_nos, connection):
@@ -61,7 +61,7 @@ def get_crime_details(url_string, crime_nos, connection):
                 if len(db_timeStamp.fetchall()) == 0:
                     connection.execute("Insert into crime_data(crime_title, crime_alert_date, crime_location, crime_timeStamp, crime_url) values(?, ?, ?, ?, ?)", (crime_title, crime_alert_date, location, timestamp, url))
 
-    update_location_coordinates()
+    update_location_coordinates(connection)
     
                 
 def main():
