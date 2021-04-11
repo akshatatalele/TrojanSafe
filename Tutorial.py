@@ -14,9 +14,6 @@ def get_db_connection():
 @app.route("/")
 def index():
     crimes = get_recent_crimes()
-    print(crimes)
-    for c in crimes:
-        print(c)
     return render_template("index.html", crimes= crimes)
 
 @app.route("/alerts")

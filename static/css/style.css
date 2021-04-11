@@ -4,3 +4,19 @@ h1 {
     text-align: center;
     padding: 10px;
 }
+
+#maps {
+    height: 100%;
+    width: 100%;
+    position:absolute;
+    top: 0;
+    left: 0;
+    /* z-index: 0;     Set z-index to 0 as it will be on a layer below the contact form */
+  }
+  
+#jumbo {
+    position: absolute;
+    z-index: 10; /* The z-index should be higher than Google Maps */
+    opacity: .45; /* Set the opacity for a slightly transparent Google Form */
+    color: white;
+  }

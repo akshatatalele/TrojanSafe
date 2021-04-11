@@ -6,21 +6,12 @@ index
 
 {% block content%}
   <div class="row">
-    <!--Google map-->
-    <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
-      <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-        style="border:0" allowfullscreen></iframe>
-    </div>
-
-    <!--Google Maps-->
-
-    <div class="col-4"></div>
-    <div class="col-4"></div>
-    <div class="jumbotron col-4">
+    <div id="map" class="col-8"></div>
+    <div id="jumbo" class="jumbotron col-4 col-md-4">
       <h1 class="display-6">Lets start your safe journey!</h1>
       <p class="lead text-muted">Happy Journey..!</p>
       <hr class="my-4">
-      
+
       <form>
         <div class="form-group">
           <!-- <label for="start_location">Starting Location</label> -->
@@ -48,7 +39,7 @@ index
   </div>
   <div class="row">
     {% for crime in crimes %}
-      <div class="card col-2" style="margin: 1%;">
+      <div class="card col-2 col-sm-4" style="margin: 1%;">
         <div class="card-body">
           <h4 class="card-title">{{crime['crime_title'] }}</h4>
           <h6 class="card-subtitle mb-2 text-muted">{{ crime['crime_alert_date']}}</h6>
@@ -60,5 +51,33 @@ index
       </div>
     {% endfor %}
   </div>
-       
+  <!-- Include the Google Maps API library - required for embedding maps -->
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-9pwUGx6xkzP2pbIbuwT_DWgE3jT_Gj4"></script>
+
+  <script>
+        $(function () {
+
+            function initMap() {
+
+                var location = new google.maps.LatLng(50.0875726, 14.4189987);
+
+                var mapCanvas = document.getElementById('map');
+                var mapOptions = {
+                    center: location,
+                    zoom: 16,
+                    panControl: false,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+                var map = new google.maps.Map(mapCanvas, mapOptions);
+
+            }
+
+            google.maps.event.addDomListener(window, 'load', initMap);
+            });
+  </script>
+  <!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+  <script type="text/javascript" src="scripts/js/maps.js"></script> -->
 {% endblock %}
