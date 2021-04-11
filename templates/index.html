@@ -71,9 +71,10 @@ index
         $(function(){
             var start = document.getElementById("start").value
             var end = document.getElementById("end").value
-            $.getJSON('get_safety_details?source_address='+ start +'&destination_address=' + end, async = false, function(data) {
+            $.getJSON('get_safety_details?source_address='+ start +'&destination_address=' + end, function(data) {
                 // json = JSON.parse(data);
                 console.log(data);
+                sleep(30);
                 if(!data.is_destination_safe){
                     // change the path color 
                     console.log(data.unsafe_locations);
@@ -91,13 +92,22 @@ index
                       }
                     });
                 }
+                var infowindow = new google.maps.InfoWindow();
                 var marker, i;
-                var locations = data.unsafe_locations;
-                for (i = 0; i < locations.length; i++) {  
+                var loc = data.unsafe_locations;
+                for (i = 0; i < loc.length; i++) { 
+                    locations = loc[i].split(",");
+                    console.log(locations[0], locations[1])
                     marker = new google.maps.Marker({
-                      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                      position: new google.maps.LatLng(locations[0], locations[1]),
                       map: map
                     });
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                      return function() {
+                        //infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                      }
+                    })(marker, i));
                 }
               });
         });
